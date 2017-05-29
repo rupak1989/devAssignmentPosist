@@ -1,0 +1,25 @@
+<h1> Manage Customer Bills </h1>
+
+<div class="list-group">
+	<div class="box22">
+                       <table width="100%" border="0" class=" table  table-condensed text-left ">
+                         <tr>
+                             <td class="bb" width="40%">Bill ID</td>
+                             <td class="bb" width="10%">Bill No</td>
+                             <td class="bb" width="10%">Bill Date</td>
+                             <td class="bb"  width="10%">Discount</td> 
+                             <td class="bb"  width="10%">Tax</td> 
+                         </tr>
+                         <tr ng-repeat="bill in bills" ng-class-even="'info'">
+                             <td>{{bill._id}}</td>
+                             <td>{{bill.billNo}}</td>
+                             <td>{{bill.billDate}}</td>
+                             <td>{{bill.discount}}</td>
+                             <td>{{bill.tax}}</td>
+                         </tr>
+                       </table>
+                   </div> 
+
+</div>
+<button ng-click="goTo(0)" class="btn  btn-info btn-lg">Prev</button>
+<button ng-click="goTo(1)" class="btn  btn-info btn-lg">Next</button>

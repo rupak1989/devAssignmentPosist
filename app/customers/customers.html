@@ -1,0 +1,67 @@
+<style>
+
+    #filters > div, #filters form, #filters form+div{
+        display: inline;
+    }
+
+</style>
+
+
+<div class="container">
+        <div class="col-md-7 ">
+            <h2>Manage Customer</h2></div>
+    </div>
+
+<div id="filters">
+    <div>
+        <span>Select a field to search</span>
+
+        <select ng-model="filterBy">
+            <option value="" disabled selected>Search By</option>
+            <option ng-repeat="option in filterOptions" value="{{option.value}}">{{option.name}}</option>
+        </select>
+    </div>
+    <div ng-show="filterBy">
+        <form name="filterForm" ng-submit="searchUser(searchText)">
+            <input name="search" type="{{inputType}}" ng-model="searchText" class="form-control" id="input-name"
+                   placeholder="" style="display: inline; width: inherit" ng-minlength="2" required>
+            <button type="submit" class="btn btn-success" ng-disabled="filterForm.search.$invalid"> Search </button>
+        </form>
+
+        <button class="btn btn-primary" ng-click="clearFilter()">clear filter</button>
+
+    </div>
+
+</div>
+
+<br>
+<br>
+
+<div class="list-group">
+                    <div class="box22">
+                       <table width="100%" border="0" class=" table  table-condensed text-left ">
+                         <tr>
+                             <td class="bb" width="20%">Name</td>
+                             <td class="bb" width="40%">Mobile No</td>
+                             <td class="bb" width="10%">Email ID</td>
+                             <td class="bb"  width="10%">Action</td> 
+                         </tr>
+                         <tr ng-repeat="customer in customers" ng-class-even="'info'">
+                             <td>{{customer.name}}</td>
+                             <td>{{customer.mobile}}</td>
+                             <td>{{customer.email}}</td>
+                             <td><a class="btn btn-block btn-info btn-lg" href="/customer-details/{{customer._id}}">Edit</a>
+                             </td>
+                         </tr>
+                       </table>
+                   </div>
+</div>
+
+<div ng-show="customers.length < 1">
+
+    <h3> Nothing found </h3>
+
+</div>
+
+<button ng-click="goTo(0)" class="btn  btn-info btn-lg">Prev</button>
+<button ng-click="goTo(1)" class="btn  btn-info btn-lg">Next</button>

@@ -1,0 +1,160 @@
+<style>
+
+    form p{
+        color: red;
+    }
+    .addressForm{
+        background-color: rgba(128, 128, 128, 0.12);
+        padding: 5px 17px;
+        overflow: hidden;border-radius: 7px;
+        margin-top: 25px;
+    }
+</style>
+
+<div>
+
+    <form name="userInfo" ng-submit="submit(userInfo, customer, address)">
+
+        <fieldset class="col-md-6">
+            <legend>{{isEdit ? 'Edit Customer Details' : 'Create Customer'}}</legend>
+
+            <div class="form-group">
+                <label for="input-name" class="control-label">Name : </label>
+                <input name="name" type="text" ng-model="customer.name" class="form-control" id="input-name"
+                       placeholder="" required>
+            </div>
+            <div class="form-group">
+                <label for="input-mobile" class="control-label">Mobile : </label>
+                <input name="mobile" type="number" ng-model="customer.mobile" ng-maxlength="10" ng-minlength="10"
+                       class="form-control" id="input-mobile" placeholder="" required>
+                <p ng-show="userInfo.mobile.$touched && userInfo.mobile.$invalid"> *Invalid mobile no </p>
+            </div>
+            <div class="form-group">
+                <label for="input-phone" class="control-label">Phone : </label>
+                <input name="phone" type="number" class="form-control" ng-model="customer.phone" ng-minlength="5"
+                       id="input-phone" placeholder="" required>
+                <p ng-show="userInfo.phone.$touched && userInfo.phone.$invalid"> *Invalid phone no </p>
+            </div>
+
+            <div class="form-group">
+                <label for="input-date" class="control-label">Date Of Birth</label>
+                <input name="dob" type="date" class="form-control mask-date" ng-model="customer.dob" id="input-date"
+                       placeholder="mm/dd/yyyy" required>
+                <p ng-show="userInfo.dob.$touched && userInfo.dob.$invalid"> *invalid date, date should be in MM/DD/YYYY formate. </p>
+            </div>
+            <div class="form-group">
+                <label for="input-email" class="control-label">Email</label>
+                <input type="email" name="email" class="form-control" ng-model="customer.email" id="input-email"
+                       placeholder="" required>
+                <p ng-show="userInfo.email.$touched && userInfo.email.$invalid"> *please enter a valid email address.</p>
+            </div>
+
+
+            <fieldset ng-show="addresses.length">
+                <legend>Your Addresses</legend>
+
+
+                <div id="address-container">
+
+                    <div ng-repeat="add in addresses">
+
+                        <div class="col-md-12 no-padding">
+
+                            <div class="col-md-8">
+                                Flat : {{add.flat}}
+                                <br>
+                                Street : {{add.street}}
+                                <br>
+                                State : {{add.state}}
+                                <br>
+                                Pin : {{add.pin}}
+                            </div>
+                            <div class="col-md-4">
+                                <button class="btn btn-danger" ng-click="deleteAddress($index)">Delete Address</button>
+                            </div>
+
+                        </div>
+
+                        <hr>
+
+                    </div>
+                    <br>
+                    <br>
+                    <div ng-show="!showAddressInput">
+
+                        <button class="btn btn-primary" ng-click="showAddress()">
+                            Add new address
+                        </button>
+
+                    </div>
+
+
+                </div>
+            </fieldset>
+
+            <div class="addressForm" ng-if="showAddressInput">
+
+                <fieldset >
+                    <legend>Address</legend>
+
+                    <div class="form-group">
+                        <label for="input-flat" class="control-label">Flat</label>
+                        <input type="text" name="flat" ng-model="address.flat" class="form-control mask-money"
+                               ng-minlength="2" id="input-flat" placeholder="" required>
+                        <p ng-show="userInfo.flat.$touched && userInfo.flat.$invalid"> *flat name is too short</p>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="input-street" class="control-label">Street</label>
+                        <input type="text" name="street" ng-model="address.street" class="form-control mask-money"
+                               ng-minlength="3" id="input-street" placeholder="" required>
+                        <p ng-show="userInfo.street.$touched && userInfo.street.$invalid"> *street name is too short.</p>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="input-state" class="control-label">State</label>
+                        <input type="text" name="state" ng-model="address.state" class="form-control mask-money"
+                               id="input-state" ng-minlength="3" placeholder="" required>
+                        <p ng-show="userInfo.state.$touched && userInfo.state.$invalid"> *state name is too short.</p>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="input-pin" class="control-label">Area Pin Code</label>
+                        <input type="number" name="pin" ng-model="address.pin" class="form-control mask-money"
+                               ng-minlength="6" ng-maxlength="6" id="input-pin" placeholder="" required>
+                        <p ng-show="userInfo.pin.$touched && userInfo.pin.$invalid"> *please enter a valid pin code.</p>
+                    </div>
+
+                    <p ng-show="userInfo.$dirty && (userInfo.flat.$invalid || userInfo.street.$invalid ||
+                 userInfo.state.$invalid || userInfo.pin.$invalid)">
+                        *Invalid address, please make sure all fields are filled properly.
+                    </p>
+
+                    <button class="btn btn-primary" ng-click="addAddress(address)" type="button"
+                            ng-disabled="userInfo.flat.$invalid || userInfo.street.$invalid ||
+                         userInfo.state.$invalid || userInfo.pin.$invalid">
+                        Add address
+                    </button>
+
+
+                </fieldset>
+
+            </div>
+
+
+
+
+            <div class="form-group" style="margin-top: 15px">
+
+                <p ng-show="userInfo.$dirty && userInfo.$invalid">
+                    *Please make sure all fields are filled with valid data.
+                </p>
+
+                <button type="submit" class="btn btn-primary">{{isEdit ? 'Update Customer' : 'Create Customer'}}</button>
+            </div>
+
+        </fieldset>
+
+    </form>
+
+</div>
